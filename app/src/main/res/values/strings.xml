@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BackgammonApp</string>
+    <string name="btn_dice">Roll\nDice</string>
 </resources>

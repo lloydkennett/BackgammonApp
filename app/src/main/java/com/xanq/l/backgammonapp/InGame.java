@@ -1,6 +1,7 @@
 package com.xanq.l.backgammonapp;
 
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -8,6 +9,8 @@ import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.content.res.AppCompatResources;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -37,7 +40,7 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
 
     @Override
     public void onClick(View view){
-       if(board.isPointPossible(Integer.parseInt((String)view.getTag()))){
+        if(board.isPointPossible(Integer.parseInt((String)view.getTag()))){
             pointClick(view);
         }
     }
@@ -103,7 +106,7 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
     }
 
     public void addPointListeners(){
-        for(int i=0; i<=25; i++){
+        for(int i=0; i<=25; i++){ //CHANGE THIS BBACK TO i=0; i<=25 to handle bar checkers as points
             String pointString = "point" + i;
             ImageView point = findViewById(getResources().getIdentifier(pointString, "id", getPackageName()));
             point.setOnClickListener(this);
@@ -151,9 +154,10 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
 
                 layout.addView(checkerView);
                 set.clone(layout);
+                set.applyTo(layout);
 
-                set.connect(checkerView.getId(), ConstraintSet.END, pointId, ConstraintSet.END, 0);
-                set.connect(checkerView.getId(), ConstraintSet.START, pointId, ConstraintSet.START, 0);
+                set.connect(checkerView.getId(), ConstraintSet.LEFT, pointId, ConstraintSet.LEFT, 0);
+                set.connect(checkerView.getId(), ConstraintSet.RIGHT, pointId, ConstraintSet.RIGHT, 0);
 
                 if (i > 0 && i < 13 && j == 0) {
                     set.connect(checkerView.getId(), ConstraintSet.BOTTOM, vertConstraint, ConstraintSet.BOTTOM, 0);
@@ -209,7 +213,7 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
 
     public void drawRollBtn(){
         if(!dice.isPlayable()) {
-            Button button = findViewById(R.id.diceBtn);
+            TextView button = findViewById(R.id.btn_dice);
             button.setVisibility(View.VISIBLE);
         }
     }
@@ -353,11 +357,21 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
     }
 
     public void drawDie(ImageView imageView, int die){
-        if(die == 0){
-            imageView.setVisibility(View.INVISIBLE);
+        imageView.setVisibility(View.VISIBLE);
+        if(die == 1) {
+            imageView.setImageResource(R.drawable.dice_one);
+        } else if(die == 2) {
+            imageView.setImageResource(R.drawable.dice_two);
+        } else if(die == 3) {
+            imageView.setImageResource(R.drawable.dice_three);
+        } else if(die == 4) {
+            imageView.setImageResource(R.drawable.dice_four);
+        } else if(die == 5) {
+            imageView.setImageResource(R.drawable.dice_five);
+        } else if(die == 6) {
+            imageView.setImageResource(R.drawable.dice_six);
         } else {
-            imageView.setVisibility(View.VISIBLE);
-            imageView.setImageResource(getResources().getIdentifier("die"+die, "drawable", getPackageName()));
+            imageView.setVisibility(View.INVISIBLE);;
         }
     }
 
@@ -392,6 +406,7 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in_game);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         currentPlayer = 1;
         aiColour = 0;
         aiOpponent = getIntent().getExtras().getBoolean("aiOpponent");
@@ -404,6 +419,7 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
         addPointListeners();
         drawCheckers();
         drawDice();
+
     }
 
     @Override

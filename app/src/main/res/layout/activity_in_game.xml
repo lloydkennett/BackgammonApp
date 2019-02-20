@@ -5,96 +5,130 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background2"
+    android:background="#63bf39"
     tools:context="com.xanq.l.backgammonapp.InGame">
 
+    <!--GUIDE LINES-->
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vertical_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.5"
+        android:orientation="vertical"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontal_middle_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.5"
+        android:orientation="horizontal"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontal_top_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.48"
+        android:orientation="horizontal"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontal_bottom_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_percent="0.52"
+        android:orientation="horizontal"/>
+
     <!--DISPLAYS BOARDERS-->
-    <ImageView
-        android:id="@+id/topBoarder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/horibar" />
 
     <ImageView
-        android:id="@+id/botBoarder"
+        android:id="@+id/top_border"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:background="@drawable/border_base"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bot_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_base"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/left_border"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/border_base"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/horibar" />
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <ImageView
-        android:id="@+id/leftBoarder"
+        android:id="@+id/right_border"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/border_base"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/vertbar" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <!--MIDDLE BAR-->
 
     <ImageView
-        android:id="@+id/rightBoarder"
+        android:id="@+id/middle_left_bar"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/border_base"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/vertbar" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/vertical_guideline"/>
 
     <ImageView
-        android:id="@+id/midBoarder"
+        android:id="@+id/middle_right_bar"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/border_base"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/middlebar" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/vertical_guideline"/>
 
     <!--DISPLAYS DIE-->
-    <Button
-        android:id="@+id/diceBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:onClick="rollClick"
-        android:text="Roll Dice"
-        android:textSize="9sp"
-        app:layout_constraintBottom_toBottomOf="@id/midBoarder"
-        app:layout_constraintEnd_toEndOf="@id/midBoarder"
-        app:layout_constraintStart_toStartOf="@id/midBoarder"
-        app:layout_constraintTop_toTopOf="@id/midBoarder" />
 
+    <TextView
+        android:id="@+id/btn_dice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="rollClick"
+        android:background="@drawable/btn_dice"
+        android:text="@string/btn_dice"
+        android:textSize="12sp"
+        android:textColor="#000000"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
+        app:layout_constraintRight_toRightOf="@id/middle_right_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!--android:visibility="invisible"      ADD TO BOTH DICE-->
     <ImageView
         android:id="@+id/die1"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        app:srcCompat="@drawable/dice_one"
         android:layout_marginBottom="50dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/diceBtn"
-        app:layout_constraintEnd_toEndOf="@id/midBoarder"
-        app:layout_constraintStart_toStartOf="@id/midBoarder"
-            app:srcCompat="@drawable/die1" />
+        app:layout_constraintBottom_toBottomOf="@id/btn_dice"
+        app:layout_constraintRight_toLeftOf="@id/middle_left_bar"
+        app:layout_constraintLeft_toRightOf="@id/middle_right_bar"/>
 
     <ImageView
         android:id="@+id/die2"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        app:srcCompat="@drawable/dice_one"
         android:layout_marginTop="50dp"
-        android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="@id/diceBtn"
-        app:layout_constraintEnd_toEndOf="@id/midBoarder"
-        app:layout_constraintStart_toStartOf="@id/midBoarder"
-        app:srcCompat="@drawable/die1" />
+        app:layout_constraintTop_toTopOf="@id/btn_dice"
+        app:layout_constraintRight_toLeftOf="@id/middle_left_bar"
+        app:layout_constraintLeft_toRightOf="@id/middle_right_bar" />
 
     <!--DISPLAY COUNTERS ON BAR-->
     <ImageView
@@ -106,8 +140,8 @@
         android:tag="25"
         app:layout_constraintBottom_toTopOf="@+id/die1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/midBoarder"
-        app:layout_constraintEnd_toEndOf="@+id/midBoarder" />
+        app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
+        app:layout_constraintRight_toRightOf="@id/middle_right_bar" />
 
     <TextView
         android:id="@+id/point25Text"
@@ -128,8 +162,8 @@
         android:tag="0"
         app:layout_constraintTop_toBottomOf="@+id/die2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/midBoarder"
-        app:layout_constraintEnd_toEndOf="@+id/midBoarder" />
+        app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
+        app:layout_constraintRight_toRightOf="@id/middle_right_bar"/>
 
     <TextView
         android:id="@+id/point0Text"
@@ -154,311 +188,274 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
-    <!--DISPLAY POINTS(TRIANGLES)-->
-    <!--BOTTOM RIGHT POINTS-->
+    <!--TRIANGLES-->
+    <!--BOTTOM RIGHT-->
     <ImageView
         android:id="@+id/point1"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:onClick="pointClick"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="1"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/rightBoarder"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point2"
-        app:srcCompat="@drawable/triangle1" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/point2"
+        app:layout_constraintRight_toLeftOf="@id/right_border"/>
 
     <ImageView
         android:id="@+id/point2"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="2"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/point1"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point3"
-        app:srcCompat="@drawable/triangle2" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/point3"
+        app:layout_constraintRight_toLeftOf="@id/point1"/>
 
     <ImageView
         android:id="@+id/point3"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="3"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/point2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point4"
-        app:srcCompat="@drawable/triangle1" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/point4"
+        app:layout_constraintRight_toLeftOf="@id/point2"/>
 
     <ImageView
         android:id="@+id/point4"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="4"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/point3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point5"
-        app:srcCompat="@drawable/triangle2" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/point5"
+        app:layout_constraintRight_toLeftOf="@id/point3"/>
 
     <ImageView
         android:id="@+id/point5"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="5"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/point4"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point6"
-        app:srcCompat="@drawable/triangle1" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/point6"
+        app:layout_constraintRight_toLeftOf="@id/point4"/>
 
     <ImageView
         android:id="@+id/point6"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="6"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/point5"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/midBoarder"
-        app:srcCompat="@drawable/triangle2" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/middle_right_bar"
+        app:layout_constraintRight_toLeftOf="@id/point5"/>
 
-    <!--BOTTOM LEFT POINTS-->
+    <!--BOTTOM LEFT-->
     <ImageView
         android:id="@+id/point7"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="7"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/midBoarder"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point8"
-        app:srcCompat="@drawable/triangle1" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/point8"
+        app:layout_constraintRight_toLeftOf="@id/middle_left_bar"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <ImageView
         android:id="@+id/point8"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="8"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/point7"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point9"
-        app:srcCompat="@drawable/triangle2" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/point9"
+        app:layout_constraintRight_toLeftOf="@id/point7"/>
 
     <ImageView
         android:id="@+id/point9"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="9"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/point8"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point10"
-        app:srcCompat="@drawable/triangle1" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/point10"
+        app:layout_constraintRight_toLeftOf="@id/point8"/>
 
     <ImageView
         android:id="@+id/point10"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="10"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/point9"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point11"
-        app:srcCompat="@drawable/triangle2" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/point11"
+        app:layout_constraintRight_toLeftOf="@id/point9"/>
 
     <ImageView
         android:id="@+id/point11"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="11"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/point10"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point12"
-        app:srcCompat="@drawable/triangle1" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/point12"
+        app:layout_constraintRight_toLeftOf="@id/point10"/>
 
     <ImageView
         android:id="@+id/point12"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="12"
-        app:layout_constraintBottom_toTopOf="@+id/botBoarder"
-        app:layout_constraintEnd_toStartOf="@+id/point11"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/leftBoarder"
-        app:srcCompat="@drawable/triangle2" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle"
+        app:layout_constraintBottom_toTopOf="@+id/bot_border"
+        app:layout_constraintLeft_toRightOf="@id/left_border"
+        app:layout_constraintRight_toLeftOf="@id/point11"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
-    <!--TOP LEFT POINTS-->
+    <!--TOP LEFT-->
     <ImageView
         android:id="@+id/point13"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="13"
-        app:layout_constraintEnd_toStartOf="@+id/point14"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/leftBoarder"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle3" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/left_border"
+        app:layout_constraintRight_toLeftOf="@id/point14"/>
 
     <ImageView
         android:id="@+id/point14"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="14"
-        app:layout_constraintEnd_toStartOf="@+id/point15"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point13"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle4" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/point13"
+        app:layout_constraintRight_toLeftOf="@id/point15"/>
 
     <ImageView
         android:id="@+id/point15"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="15"
-        app:layout_constraintEnd_toStartOf="@+id/point16"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point14"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle3" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/point14"
+        app:layout_constraintRight_toLeftOf="@id/point16"/>
 
     <ImageView
         android:id="@+id/point16"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="16"
-        app:layout_constraintEnd_toStartOf="@+id/point17"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point15"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle4" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/point15"
+        app:layout_constraintRight_toLeftOf="@id/point17"/>
 
     <ImageView
         android:id="@+id/point17"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="17"
-        app:layout_constraintEnd_toStartOf="@+id/point18"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point16"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle3" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/point16"
+        app:layout_constraintRight_toLeftOf="@id/point18"/>
 
     <ImageView
         android:id="@+id/point18"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:scaleType="fitCenter"
         android:tag="18"
-        app:layout_constraintEnd_toStartOf="@+id/midBoarder"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point17"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle4" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/point17"
+        app:layout_constraintRight_toLeftOf="@id/middle_left_bar"/>
 
-    <!--TOP RIGHT POINTS-->
+    <!--TOP RIGHT-->
     <ImageView
         android:id="@+id/point19"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="19"
-        app:layout_constraintEnd_toStartOf="@+id/point20"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/midBoarder"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle3" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/middle_right_bar"
+        app:layout_constraintRight_toLeftOf="@id/point20"/>
 
     <ImageView
         android:id="@+id/point20"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="20"
-        app:layout_constraintEnd_toStartOf="@+id/point21"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point19"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle4" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@+id/point19"
+        app:layout_constraintRight_toLeftOf="@id/point21"/>
 
     <ImageView
         android:id="@+id/point21"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="21"
-        app:layout_constraintEnd_toStartOf="@+id/point22"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point20"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle3" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/point20"
+        app:layout_constraintRight_toLeftOf="@id/point22"/>
 
     <ImageView
         android:id="@+id/point22"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="22"
-        app:layout_constraintEnd_toStartOf="@+id/point23"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point21"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle4" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/point21"
+        app:layout_constraintRight_toLeftOf="@id/point23"/>
 
     <ImageView
         android:id="@+id/point23"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="23"
-        app:layout_constraintEnd_toStartOf="@+id/point24"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point22"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle3" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/red_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/point22"
+        app:layout_constraintRight_toLeftOf="@id/point24"/>
 
     <ImageView
         android:id="@+id/point24"
-        android:layout_width="0dp"
-        android:layout_height="140dp"
-        android:longClickable="true"
-        android:scaleType="fitCenter"
         android:tag="24"
-        app:layout_constraintEnd_toStartOf="@+id/rightBoarder"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/point23"
-        app:layout_constraintTop_toBottomOf="@+id/topBoarder"
-        app:srcCompat="@drawable/triangle4" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/yellow_triangle_flipped"
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
+        app:layout_constraintLeft_toRightOf="@id/point23"
+        app:layout_constraintRight_toLeftOf="@id/right_border"/>
 
     <!--GREEN SELECTION TRIANGLES-->
     <ImageView
@@ -466,7 +463,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        app:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point0"
         app:layout_constraintEnd_toStartOf="@+id/point0"
         app:layout_constraintStart_toEndOf="@+id/point0" />
@@ -476,7 +473,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point1"
         app:layout_constraintEnd_toStartOf="@+id/point1"
         app:layout_constraintStart_toEndOf="@+id/point1" />
@@ -486,7 +483,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point2"
         app:layout_constraintEnd_toStartOf="@+id/point2"
         app:layout_constraintStart_toEndOf="@+id/point2" />
@@ -496,7 +493,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point3"
         app:layout_constraintEnd_toStartOf="@+id/point3"
         app:layout_constraintStart_toEndOf="@+id/point3" />
@@ -506,7 +503,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point4"
         app:layout_constraintEnd_toStartOf="@+id/point4"
         app:layout_constraintStart_toEndOf="@+id/point4" />
@@ -516,7 +513,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point5"
         app:layout_constraintEnd_toStartOf="@+id/point5"
         app:layout_constraintStart_toEndOf="@+id/point5" />
@@ -526,7 +523,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point6"
         app:layout_constraintEnd_toStartOf="@+id/point6"
         app:layout_constraintStart_toEndOf="@+id/point6" />
@@ -536,7 +533,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point7"
         app:layout_constraintEnd_toStartOf="@+id/point7"
         app:layout_constraintStart_toEndOf="@+id/point7" />
@@ -546,7 +543,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point8"
         app:layout_constraintEnd_toStartOf="@+id/point8"
         app:layout_constraintStart_toEndOf="@+id/point8" />
@@ -556,7 +553,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point9"
         app:layout_constraintEnd_toStartOf="@+id/point9"
         app:layout_constraintStart_toEndOf="@+id/point9" />
@@ -566,7 +563,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point10"
         app:layout_constraintEnd_toStartOf="@+id/point10"
         app:layout_constraintStart_toEndOf="@+id/point10" />
@@ -576,7 +573,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point11"
         app:layout_constraintEnd_toStartOf="@+id/point11"
         app:layout_constraintStart_toEndOf="@+id/point11" />
@@ -586,7 +583,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select"
+        android:background="@drawable/green_triangle"
         app:layout_constraintTop_toBottomOf="@+id/point12"
         app:layout_constraintEnd_toStartOf="@+id/point12"
         app:layout_constraintStart_toEndOf="@+id/point12" />
@@ -596,7 +593,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point13"
         app:layout_constraintEnd_toStartOf="@+id/point13"
         app:layout_constraintStart_toEndOf="@+id/point13" />
@@ -606,7 +603,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point14"
         app:layout_constraintEnd_toStartOf="@+id/point14"
         app:layout_constraintStart_toEndOf="@+id/point14" />
@@ -616,7 +613,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point15"
         app:layout_constraintEnd_toStartOf="@+id/point15"
         app:layout_constraintStart_toEndOf="@+id/point15" />
@@ -626,7 +623,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point16"
         app:layout_constraintEnd_toStartOf="@+id/point16"
         app:layout_constraintStart_toEndOf="@+id/point16" />
@@ -636,7 +633,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point17"
         app:layout_constraintEnd_toStartOf="@+id/point17"
         app:layout_constraintStart_toEndOf="@+id/point17" />
@@ -646,7 +643,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point18"
         app:layout_constraintEnd_toStartOf="@+id/point18"
         app:layout_constraintStart_toEndOf="@+id/point18" />
@@ -656,7 +653,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point19"
         app:layout_constraintEnd_toStartOf="@+id/point19"
         app:layout_constraintStart_toEndOf="@+id/point19" />
@@ -666,7 +663,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point20"
         app:layout_constraintEnd_toStartOf="@+id/point20"
         app:layout_constraintStart_toEndOf="@+id/point20" />
@@ -676,7 +673,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point21"
         app:layout_constraintEnd_toStartOf="@+id/point21"
         app:layout_constraintStart_toEndOf="@+id/point21" />
@@ -686,7 +683,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point22"
         app:layout_constraintEnd_toStartOf="@+id/point22"
         app:layout_constraintStart_toEndOf="@+id/point22" />
@@ -696,7 +693,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point23"
         app:layout_constraintEnd_toStartOf="@+id/point23"
         app:layout_constraintStart_toEndOf="@+id/point23" />
@@ -706,17 +703,17 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        android:background="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point24"
         app:layout_constraintEnd_toStartOf="@+id/point24"
         app:layout_constraintStart_toEndOf="@+id/point24" />
 
-    <ImageView
+    ImageView
         android:id="@+id/select25"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/select2"
+        app:srcCompat="@drawable/green_triangle_flipped"
         app:layout_constraintBottom_toTopOf="@+id/point25"
         app:layout_constraintEnd_toStartOf="@+id/point25"
         app:layout_constraintStart_toEndOf="@+id/point25" />
@@ -731,10 +728,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/rightBoarder"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/midBoarder" />
+        app:layout_constraintTop_toTopOf="@+id/top_border"
+        app:layout_constraintBottom_toBottomOf="@id/bot_border"
+        app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
+        app:layout_constraintRight_toRightOf="@id/middle_right_bar"/>
 
 
 </android.support.constraint.ConstraintLayout>
