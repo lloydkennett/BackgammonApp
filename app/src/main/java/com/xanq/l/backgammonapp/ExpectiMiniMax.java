@@ -292,7 +292,6 @@ public class ExpectiMiniMax {
         return score;
     }
 
-
     public double getBoardScore(Board board, int player){
         double score = 0;
         score += board.getHome(player)*player*100000;

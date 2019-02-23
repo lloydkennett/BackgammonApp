@@ -1,7 +1,6 @@
 package com.xanq.l.backgammonapp;
 
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -9,13 +8,10 @@ import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.content.res.AppCompatResources;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -106,7 +102,7 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
     }
 
     public void addPointListeners(){
-        for(int i=0; i<=25; i++){ //CHANGE THIS BBACK TO i=0; i<=25 to handle bar checkers as points
+        for(int i=0; i<=25; i++){
             String pointString = "point" + i;
             ImageView point = findViewById(getResources().getIdentifier(pointString, "id", getPackageName()));
             point.setOnClickListener(this);
@@ -144,17 +140,18 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
                 checkerView.setId(checkerCount);
                 checkerCount++;
                 if (board.getCheckersAtPoint(i) > 0) {
-                    checkerView.setImageResource(R.drawable.counter1);
+                    checkerView.setImageResource(R.drawable.checker_white);
                 } else if (board.getCheckersAtPoint(i) < 0) {
-                    checkerView.setImageResource(R.drawable.counter2);
+                    checkerView.setImageResource(R.drawable.checker_black);
                 }
-                checkerView.setAdjustViewBounds(true);
-                checkerView.setMaxHeight(100);
-                checkerView.setMaxWidth(100);
+                //checkerView.setLayoutParams(new ConstraintLayout.LayoutParams(96, 96));
+                ImageView point = findViewById(R.id.point1);
+                System.out.println("Point height: "+point.getMeasuredHeight());
 
                 layout.addView(checkerView);
                 set.clone(layout);
                 set.applyTo(layout);
+                set.setDimensionRatio(checkerCount, "1:1");
 
                 set.connect(checkerView.getId(), ConstraintSet.LEFT, pointId, ConstraintSet.LEFT, 0);
                 set.connect(checkerView.getId(), ConstraintSet.RIGHT, pointId, ConstraintSet.RIGHT, 0);
@@ -371,7 +368,7 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
         } else if(die == 6) {
             imageView.setImageResource(R.drawable.dice_six);
         } else {
-            imageView.setVisibility(View.INVISIBLE);;
+            imageView.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -406,7 +403,6 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in_game);
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         currentPlayer = 1;
         aiColour = 0;
         aiOpponent = getIntent().getExtras().getBoolean("aiOpponent");
