@@ -1,6 +1,7 @@
 package com.xanq.l.backgammonapp;
 
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -10,8 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -58,24 +61,27 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
     }
 
     public void drawCancelableDialog(String message){
-        builder.setMessage(message);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setCancelable(false);
+        builder.setView(R.layout.dialog_cancel);
+        dialog = builder.create();
+        dialog.show();
+
+        TextView text = dialog.findViewById(R.id.dialog_text);
+        text.setText(message);
+
+        Button button = dialog.findViewById(R.id.dialog_btn);
+        button.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
+            public void onClick(View view){
+                dialog.dismiss();
+                dialog = null;
                 dice.completeReset();
                 drawDice();
                 setupNextTurn();
                 goFullScreen();
             }
         });
-        dialog = builder.create();
-        dialog.setCancelable(false);
-        Window window = dialog.getWindow();
-        WindowManager.LayoutParams windowLayout = window.getAttributes();
-        windowLayout.gravity = Gravity.LEFT;
-        dialog.show();
-        window.setLayout(1400, 700);
+
     }
 
     public void drawExitDialog(String message){
@@ -115,73 +121,122 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
         }
     }
 
-    public void removeCheckers() {
-        int checkerCount = 2141165218;
-        for (int i = 1; i <= 24; i++) {
-            int checkers = Math.abs(board.getCheckersAtPoint(i));
-            for (int j = 0; j < checkers; j++) {
-                ImageView checker = findViewById(checkerCount);
-                layout.removeView(checker);
-                checkerCount++;
-            }
-        }
-    }
-
-    public void drawCheckers() {
-        int checkerCount = 2141165218;
-        for (int i = 1; i < 25; i++) {
-            String pointString = "point" + i;
-            int pointId = getResources().getIdentifier(pointString, "id", getPackageName());
-            int vertConstraint = pointId;
-            int checkers = Math.abs(board.getCheckersAtPoint(i));
-            for (int j = 0; j < checkers; j++) {
-                ConstraintSet set = new ConstraintSet();
-                ImageView checkerView = new ImageView(this);
-                checkerView.setId(checkerCount);
-                checkerCount++;
-                if (board.getCheckersAtPoint(i) > 0) {
-                    checkerView.setImageResource(R.drawable.checker_white);
-                } else if (board.getCheckersAtPoint(i) < 0) {
-                    checkerView.setImageResource(R.drawable.checker_black);
-                }
-                //checkerView.setLayoutParams(new ConstraintLayout.LayoutParams(96, 96));
-                ImageView point = findViewById(R.id.point1);
-                System.out.println("Point height: "+point.getMeasuredHeight());
-
-                layout.addView(checkerView);
-                set.clone(layout);
+    //TODO Check if constraintset has to be one per imageview (api reference not working atm)
+    public void constrainCheckersToTopPoint(int checkerId, int point){
+        int pointId = getResources().getIdentifier("point" + point, "id", getPackageName());
+        for(int j = 0; j < 5; j++) {
+            int nextChecker = checkerId + 1;
+            int prevChecker = checkerId - 1;
+            ConstraintSet set = new ConstraintSet();
+            set.clone(layout);
+            set.applyTo(layout);
+            set.connect(checkerId, ConstraintSet.LEFT, pointId, ConstraintSet.LEFT, 0);
+            set.connect(checkerId, ConstraintSet.RIGHT, pointId, ConstraintSet.RIGHT, 0);
+            if (j == 0) {
+                set.connect(checkerId, ConstraintSet.TOP, pointId, ConstraintSet.TOP, 0);
+                set.connect(checkerId, ConstraintSet.BOTTOM, nextChecker, ConstraintSet.TOP, 0);
                 set.applyTo(layout);
-                set.setDimensionRatio(checkerCount, "1:1");
-
-                set.connect(checkerView.getId(), ConstraintSet.LEFT, pointId, ConstraintSet.LEFT, 0);
-                set.connect(checkerView.getId(), ConstraintSet.RIGHT, pointId, ConstraintSet.RIGHT, 0);
-
-                if (i > 0 && i < 13 && j == 0) {
-                    set.connect(checkerView.getId(), ConstraintSet.BOTTOM, vertConstraint, ConstraintSet.BOTTOM, 0);
-                    set.applyTo(layout);
-                } else if (i > 0 && i < 13 && j < 5) {
-                    set.connect(checkerView.getId(), ConstraintSet.BOTTOM, vertConstraint, ConstraintSet.TOP, 0);
-                    set.applyTo(layout);
-                } else if (i >= 13 && i <= 24 && j == 0) {
-                    set.connect(checkerView.getId(), ConstraintSet.TOP, vertConstraint, ConstraintSet.TOP, 0);
-                    set.applyTo(layout);
-                } else if (i >= 13 && i <= 24 && j < 5) {
-                    set.connect(checkerView.getId(), ConstraintSet.TOP, vertConstraint, ConstraintSet.BOTTOM, 0);
-                    set.applyTo(layout);
-                }
-                vertConstraint = checkerView.getId();
+            } else if (j < 4) {
+                set.connect(checkerId, ConstraintSet.TOP, prevChecker, ConstraintSet.BOTTOM, 0);
+                set.connect(checkerId, ConstraintSet.BOTTOM, nextChecker, ConstraintSet.TOP, 0);
+                set.applyTo(layout);
+            } else if (j == 4) {
+                set.connect(checkerId, ConstraintSet.TOP, prevChecker, ConstraintSet.BOTTOM, 0);
+                set.connect(checkerId, ConstraintSet.BOTTOM, pointId, ConstraintSet.BOTTOM, 0);
+                set.applyTo(layout);
             }
+
+            checkerId++;
         }
-        drawBarCheckers(0);
-        drawBarCheckers(25);
     }
 
-    public void drawBarCheckers(int point) {
-        ImageView bar = findViewById(getResources().getIdentifier("point" + point, "id", getPackageName()));
-        TextView barTxt = findViewById(getResources().getIdentifier("point" + point + "Text", "id", getPackageName()));
-        if (board.getCheckersAtPoint(point) != 0) {
+    public void constrainCheckersToBottomPoint(int checkerId, int point){
+        int pointId = getResources().getIdentifier("point" + point, "id", getPackageName());
+        for(int j = 0; j < 5; j++) {
+            int nextChecker = checkerId + 1;
+            int prevChecker = checkerId - 1;
+            ConstraintSet set = new ConstraintSet();
+            set.clone(layout);
+            set.applyTo(layout);
+            set.connect(checkerId, ConstraintSet.LEFT, pointId, ConstraintSet.LEFT, 0);
+            set.connect(checkerId, ConstraintSet.RIGHT, pointId, ConstraintSet.RIGHT, 0);
+            if (j == 0) {
+                set.connect(checkerId, ConstraintSet.TOP, nextChecker, ConstraintSet.BOTTOM, 0);
+                set.connect(checkerId, ConstraintSet.BOTTOM, pointId, ConstraintSet.BOTTOM, 0);
+                set.applyTo(layout);
+            } else if (j < 4) {
+                set.connect(checkerId, ConstraintSet.TOP, nextChecker, ConstraintSet.BOTTOM, 0);
+                set.connect(checkerId, ConstraintSet.BOTTOM, prevChecker, ConstraintSet.TOP, 0);
+                set.applyTo(layout);
+            } else if (j == 4) {
+                set.connect(checkerId, ConstraintSet.TOP, pointId, ConstraintSet.TOP, 0);
+                set.connect(checkerId, ConstraintSet.BOTTOM, prevChecker, ConstraintSet.TOP, 0);
+                set.applyTo(layout);
+            }
+            checkerId++;
+        }
+    }
+
+    //pre draw 5 checkers on points and fill them in like how the dice words
+    public void createCheckers(){
+        int checkerId = 2141165218;
+        for(int i=1; i<=24; i++) {
+            int checkers = board.getCheckersAtPoint(i);
+            for(int j = 0; j < 5; j++) {
+                ImageView checkerView = new ImageView(this);
+                checkerView.setId(checkerId);
+                checkerView.setTag(i + "_" + j);
+                checkerView.setLayoutParams(new ViewGroup.LayoutParams(0, 0));
+                layout.addView(checkerView);
+                checkers = drawChecker(checkers, checkerId);
+                checkerId++;
+
+            }
+            checkerId -= 5;
+            if (i < 13) {
+                constrainCheckersToBottomPoint(checkerId, i);
+            } else {
+                constrainCheckersToTopPoint(checkerId, i);
+            }
+
+            checkerId += 5;
+            System.out.println();
+        }
+    }
+
+    public void redrawCheckers() {
+        int checkerId = 2141165218;
+        for(int i=1; i<=24; i++) {
+            int checkers = board.getCheckersAtPoint(i);
+            for(int j=0; j<5; j++){
+                checkers = drawChecker(checkers, checkerId);
+                checkerId++;
+            }
+        }
+        redrawBarCheckers(0); redrawBarCheckers(25);
+    }
+
+    public int drawChecker(int checkers, int checkerId){
+        ImageView checker = findViewById(checkerId);
+        checker.setVisibility(View.VISIBLE);
+        if (checkers > 0) {
+            checker.setImageResource(R.drawable.checker_white);
+            checkers -= 1;
+        } else if (checkers < 0) {
+            checkers -= -1;
+            checker.setImageResource(R.drawable.checker_black);
+        } else {
+            checker.setVisibility(View.INVISIBLE);
+        }
+        return checkers;
+    }
+
+    public void redrawBarCheckers(int pointId) {
+        ImageView bar = findViewById(getResources().getIdentifier("point" + pointId, "id", getPackageName()));
+        TextView barTxt = findViewById(getResources().getIdentifier("point" + pointId + "Text", "id", getPackageName()));
+        if (board.getCheckersAtPoint(pointId) != 0) {
             bar.setVisibility(View.VISIBLE);
-            String checkers = Integer.toString(Math.abs(board.getCheckersAtPoint(point)));
+            String checkers = Integer.toString(Math.abs(board.getCheckersAtPoint(pointId)));
             barTxt.setText(checkers);
         } else {
             bar.setVisibility(View.INVISIBLE);
@@ -222,9 +277,8 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
             if(move.isHomePossible(board, dice.getDie1(), dice.getDie2())){
                 drawSelections(false);
                 possiblePlays.clear();
-                removeCheckers();
                 move.move(board);
-                drawCheckers();
+                redrawCheckers();
                 move.resetDiceBearingOff(dice);
                 drawDice();
                 possiblePlays.clear();
@@ -262,9 +316,8 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                removeCheckers();
                 move.move(board);
-                drawCheckers();
+                redrawCheckers();
                 move.resetDice(dice);
                 drawDice();
                 drawSelection(false, move.getStart());
@@ -274,7 +327,8 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
                 if (lastMove) {
                     hideProgressBar();
                     if (dice.resetUnplayableDie(board, currentPlayer)) {
-                        drawCancelableDialog("No playable moves. Resetting dice");
+                        drawCancelableDialog("Dice: "+dice.getDie1()+" and "+dice.getDie2()+"" +
+                        "\nNo playable moves. Resetting dice.");
                     } else {
                         setupNextTurn();
                     }
@@ -331,21 +385,27 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
         }
 
         if(aiColour == 0 && aiOpponent){
+            while(dice.getDie1() == dice.getDie2()){
+                dice.roll();
+            }
             if (dice.getDie1() > dice.getDie2()) {
                 aiColour = -1;
                 currentPlayer = -1;
-                drawCancelableDialog("Player is white.\nComputer is black.\n\nPlayer moves first.");
+                drawCancelableDialog("Die 1:  "+dice.getDie1()+"          Die 2:  "+dice.getDie2()+
+                        "\n\nYou are white and move first");
+            /*drawCancelableDialog("Die 1: "+dice.getDie1()+"\tDie 2: "+dice.getDie2()+
+                        "\nPlayer is white.\tComputer is black.\n\nPlayer moves first.");*/
             } else if (dice.getDie1() < dice.getDie2()) {
                 aiColour = 1;
                 currentPlayer = -1;
-                drawCancelableDialog("Player is black.\nComputer is white.\n\nComputer moves first.");
-            } else {
-                drawDice();
-                drawCancelableDialog("Dice are the same.\nPlease re-roll to assign colours.");
+                drawCancelableDialog("Die 1:  "+dice.getDie1()+"          Die 2:  "+dice.getDie2()+
+                        "\n\nYou are black and move second");
             }
         } else {
             if (dice.resetUnplayableDie(board, currentPlayer)) {
-                drawCancelableDialog("No playable moves. \n\nResetting dice.");
+                System.out.println("in roll click");
+                drawCancelableDialog("Die 1:  "+dice.getDie1()+"          Die 2:  "+dice.getDie2()+
+                        "\n\nNo playable moves. Resetting dice.");
             } else {
                 drawDice();
             }
@@ -391,12 +451,11 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
 
     @Override
     protected void onDestroy(){
-        super.onDestroy();
         stopThread(AITask);
         stopThread(makeMoveTask);
         stopThread(startMoveTask);
-        removeCheckers();
         dialog = null;
+        super.onDestroy();
     }
 
     @Override
@@ -413,7 +472,8 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
         builder = new AlertDialog.Builder(this);
         progressBar = findViewById(getResources().getIdentifier("progressBar", "id", getPackageName()));
         addPointListeners();
-        drawCheckers();
+
+        createCheckers();
         drawDice();
 
     }

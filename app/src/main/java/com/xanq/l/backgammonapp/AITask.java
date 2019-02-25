@@ -45,7 +45,8 @@ public class AITask extends AsyncTask<Void, Void, Play> {
         if(play.getSize() != 0) {
             inGame.drawPlay(play, 500);
         } else {
-            inGame.drawCancelableDialog("No playable moves. Resetting dice");
+            inGame.drawCancelableDialog("Dice: "+dice.getDie1()+" and "+dice.getDie2()+"" +
+                    "\nNo playable moves. Resetting dice.");
         }
     }
 }

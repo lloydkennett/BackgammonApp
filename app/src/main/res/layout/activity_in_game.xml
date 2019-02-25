@@ -5,7 +5,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#63bf39"
+    android:background="@color/color_background"
     tools:context="com.xanq.l.backgammonapp.InGame">
 
     <!--GUIDE LINES-->
@@ -14,29 +14,29 @@
         android:id="@+id/vertical_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.5"
-        android:orientation="vertical"/>
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
     <android.support.constraint.Guideline
         android:id="@+id/horizontal_middle_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.5"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
     <android.support.constraint.Guideline
         android:id="@+id/horizontal_top_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.48"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
 
     <android.support.constraint.Guideline
         android:id="@+id/horizontal_bottom_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_percent="0.52"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
 
     <!--DISPLAYS BOARDERS-->
 
@@ -59,18 +59,18 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@drawable/border_base"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/right_border"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@drawable/border_base"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--MIDDLE BAR-->
 
@@ -79,79 +79,97 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@drawable/border_base"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/vertical_guideline"/>
+        app:layout_constraintRight_toLeftOf="@id/vertical_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/middle_right_bar"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@drawable/border_base"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/vertical_guideline"/>
+        app:layout_constraintLeft_toRightOf="@id/vertical_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        android:indeterminateTint="#ffffff"
+        android:indeterminateTintMode="src_in"
+        app:layout_constraintBottom_toBottomOf="@id/bot_border"
+        app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
+        app:layout_constraintRight_toRightOf="@id/middle_right_bar"
+        app:layout_constraintTop_toTopOf="@+id/top_border" />
 
     <!--DISPLAYS DIE-->
 
     <TextView
         android:id="@+id/btn_dice"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:onClick="rollClick"
-        android:background="@drawable/btn_dice"
-        android:text="@string/btn_dice"
-        android:textSize="12sp"
-        android:textColor="#000000"
-        android:textAlignment="center"
+        android:layout_height="0dp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
+        android:background="@drawable/btn_dice"
+        android:onClick="rollClick"
+        android:text="@string/btn_dice"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
         app:layout_constraintRight_toRightOf="@id/middle_right_bar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/die1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:srcCompat="@drawable/dice_one"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        app:layout_constraintTop_toBottomOf="@id/point25"
         app:layout_constraintBottom_toTopOf="@id/btn_dice"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
         app:layout_constraintRight_toRightOf="@id/middle_right_bar"
-        app:layout_constraintDimensionRatio="1:1"/>
+        app:layout_constraintTop_toBottomOf="@id/point25"
+        app:srcCompat="@drawable/dice_one" />
 
     <ImageView
         android:id="@+id/die2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:srcCompat="@drawable/dice_one"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_dice"
         app:layout_constraintBottom_toTopOf="@id/point0"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
         app:layout_constraintRight_toRightOf="@id/middle_right_bar"
-        app:layout_constraintDimensionRatio="1:1"/>
+        app:layout_constraintTop_toBottomOf="@id/btn_dice"
+        app:srcCompat="@drawable/dice_one" />
 
     <!--DISPLAY COUNTERS ON BAR-->
     <ImageView
         android:id="@+id/point25"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
-        app:srcCompat="@drawable/checker_white"
-        android:tag="25"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
+        android:tag="25"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/die1"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
         app:layout_constraintRight_toRightOf="@id/middle_right_bar"
-        app:layout_constraintDimensionRatio="1:1"/>
+        app:layout_constraintTop_toBottomOf="@id/top_border"
+        app:srcCompat="@drawable/checker_white" />
 
     <TextView
         android:id="@+id/point25Text"
@@ -167,23 +185,23 @@
         android:id="@+id/point0"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
-        app:srcCompat="@drawable/checker_black"
-        android:tag="0"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        app:layout_constraintTop_toBottomOf="@+id/die2"
+        android:tag="0"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/bot_border"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
         app:layout_constraintRight_toRightOf="@id/middle_right_bar"
-        app:layout_constraintDimensionRatio="1:1"/>
+        app:layout_constraintTop_toBottomOf="@+id/die2"
+        app:srcCompat="@drawable/checker_black" />
 
     <TextView
         android:id="@+id/point0Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
         android:textColor="@android:color/white"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/point0"
         app:layout_constraintEnd_toStartOf="@+id/point0"
         app:layout_constraintStart_toEndOf="@+id/point0"
@@ -205,77 +223,77 @@
     <!--BOTTOM RIGHT-->
     <ImageView
         android:id="@+id/point1"
-        android:tag="1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        android:tag="1"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/point2"
-        app:layout_constraintRight_toLeftOf="@id/right_border"/>
+        app:layout_constraintRight_toLeftOf="@id/right_border"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <ImageView
         android:id="@+id/point2"
-        android:tag="2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        android:tag="2"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/point3"
-        app:layout_constraintRight_toLeftOf="@id/point1"/>
+        app:layout_constraintRight_toLeftOf="@id/point1"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <ImageView
         android:id="@+id/point3"
-        android:tag="3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        android:tag="3"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/point4"
-        app:layout_constraintRight_toLeftOf="@id/point2"/>
+        app:layout_constraintRight_toLeftOf="@id/point2"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <ImageView
         android:id="@+id/point4"
-        android:tag="4"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        android:tag="4"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/point5"
-        app:layout_constraintRight_toLeftOf="@id/point3"/>
+        app:layout_constraintRight_toLeftOf="@id/point3"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <ImageView
         android:id="@+id/point5"
-        android:tag="5"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        android:tag="5"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/point6"
-        app:layout_constraintRight_toLeftOf="@id/point4"/>
+        app:layout_constraintRight_toLeftOf="@id/point4"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <ImageView
         android:id="@+id/point6"
-        android:tag="6"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        android:tag="6"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/middle_right_bar"
-        app:layout_constraintRight_toLeftOf="@id/point5"/>
+        app:layout_constraintRight_toLeftOf="@id/point5"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <!--BOTTOM LEFT-->
     <ImageView
         android:id="@+id/point7"
-        android:tag="7"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle"
+        android:tag="7"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/point8"
         app:layout_constraintRight_toLeftOf="@id/middle_left_bar"
@@ -283,54 +301,54 @@
 
     <ImageView
         android:id="@+id/point8"
-        android:tag="8"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        android:tag="8"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/point9"
-        app:layout_constraintRight_toLeftOf="@id/point7"/>
+        app:layout_constraintRight_toLeftOf="@id/point7"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <ImageView
         android:id="@+id/point9"
-        android:tag="9"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        android:tag="9"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/point10"
-        app:layout_constraintRight_toLeftOf="@id/point8"/>
+        app:layout_constraintRight_toLeftOf="@id/point8"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <ImageView
         android:id="@+id/point10"
-        android:tag="10"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        android:tag="10"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/point11"
-        app:layout_constraintRight_toLeftOf="@id/point9"/>
+        app:layout_constraintRight_toLeftOf="@id/point9"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <ImageView
         android:id="@+id/point11"
-        android:tag="11"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline"
+        android:tag="11"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/point12"
-        app:layout_constraintRight_toLeftOf="@id/point10"/>
+        app:layout_constraintRight_toLeftOf="@id/point10"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_bottom_guideline" />
 
     <ImageView
         android:id="@+id/point12"
-        android:tag="12"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle"
+        android:tag="12"
         app:layout_constraintBottom_toTopOf="@+id/bot_border"
         app:layout_constraintLeft_toRightOf="@id/left_border"
         app:layout_constraintRight_toLeftOf="@id/point11"
@@ -339,436 +357,421 @@
     <!--TOP LEFT-->
     <ImageView
         android:id="@+id/point13"
-        android:tag="13"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="13"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/left_border"
-        app:layout_constraintRight_toLeftOf="@id/point14"/>
+        app:layout_constraintRight_toLeftOf="@id/point14"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/point14"
-        android:tag="14"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="14"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/point13"
-        app:layout_constraintRight_toLeftOf="@id/point15"/>
+        app:layout_constraintRight_toLeftOf="@id/point15"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/point15"
-        android:tag="15"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="15"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/point14"
-        app:layout_constraintRight_toLeftOf="@id/point16"/>
+        app:layout_constraintRight_toLeftOf="@id/point16"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/point16"
-        android:tag="16"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="16"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/point15"
-        app:layout_constraintRight_toLeftOf="@id/point17"/>
+        app:layout_constraintRight_toLeftOf="@id/point17"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/point17"
-        android:tag="17"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="17"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/point16"
-        app:layout_constraintRight_toLeftOf="@id/point18"/>
+        app:layout_constraintRight_toLeftOf="@id/point18"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/point18"
-        android:tag="18"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="18"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/point17"
-        app:layout_constraintRight_toLeftOf="@id/middle_left_bar"/>
+        app:layout_constraintRight_toLeftOf="@id/middle_left_bar"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <!--TOP RIGHT-->
     <ImageView
         android:id="@+id/point19"
-        android:tag="19"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="19"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/middle_right_bar"
-        app:layout_constraintRight_toLeftOf="@id/point20"/>
+        app:layout_constraintRight_toLeftOf="@id/point20"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/point20"
-        android:tag="20"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="20"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@+id/point19"
-        app:layout_constraintRight_toLeftOf="@id/point21"/>
+        app:layout_constraintRight_toLeftOf="@id/point21"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/point21"
-        android:tag="21"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="21"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/point20"
-        app:layout_constraintRight_toLeftOf="@id/point22"/>
+        app:layout_constraintRight_toLeftOf="@id/point22"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/point22"
-        android:tag="22"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="22"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/point21"
-        app:layout_constraintRight_toLeftOf="@id/point23"/>
+        app:layout_constraintRight_toLeftOf="@id/point23"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/point23"
-        android:tag="23"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/red_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="23"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/point22"
-        app:layout_constraintRight_toLeftOf="@id/point24"/>
+        app:layout_constraintRight_toLeftOf="@id/point24"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/point24"
-        android:tag="24"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/yellow_triangle_flipped"
-        app:layout_constraintTop_toBottomOf="@id/top_border"
+        android:tag="24"
         app:layout_constraintBottom_toTopOf="@+id/horizontal_top_guideline"
         app:layout_constraintLeft_toRightOf="@id/point23"
-        app:layout_constraintRight_toLeftOf="@id/right_border"/>
+        app:layout_constraintRight_toLeftOf="@id/right_border"
+        app:layout_constraintTop_toBottomOf="@id/top_border" />
 
     <!--GREEN SELECTION TRIANGLES-->
     <ImageView
         android:id="@+id/select0"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point0"
+        android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="@id/point0"
-        app:layout_constraintRight_toRightOf="@id/point0"/>
+        app:layout_constraintRight_toRightOf="@id/point0"
+        app:layout_constraintTop_toBottomOf="@+id/point0" />
 
     <ImageView
         android:id="@+id/select1"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point1"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point1"
-        app:layout_constraintRight_toRightOf="@id/point1"/>
+        app:layout_constraintRight_toRightOf="@id/point1"
+        app:layout_constraintTop_toBottomOf="@+id/point1" />
 
     <ImageView
         android:id="@+id/select2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point2"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point2"
-        app:layout_constraintRight_toRightOf="@id/point2"/>
+        app:layout_constraintRight_toRightOf="@id/point2"
+        app:layout_constraintTop_toBottomOf="@+id/point2" />
 
     <ImageView
         android:id="@+id/select3"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point3"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point3"
-        app:layout_constraintRight_toRightOf="@id/point3" />
+        app:layout_constraintRight_toRightOf="@id/point3"
+        app:layout_constraintTop_toBottomOf="@+id/point3" />
 
     <ImageView
         android:id="@+id/select4"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point4"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point4"
-        app:layout_constraintRight_toRightOf="@id/point4" />
+        app:layout_constraintRight_toRightOf="@id/point4"
+        app:layout_constraintTop_toBottomOf="@+id/point4" />
 
     <ImageView
         android:id="@+id/select5"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point5"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point5"
-        app:layout_constraintRight_toRightOf="@id/point5" />
+        app:layout_constraintRight_toRightOf="@id/point5"
+        app:layout_constraintTop_toBottomOf="@+id/point5" />
 
     <ImageView
         android:id="@+id/select6"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point6"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point6"
-        app:layout_constraintRight_toRightOf="@id/point6" />
+        app:layout_constraintRight_toRightOf="@id/point6"
+        app:layout_constraintTop_toBottomOf="@+id/point6" />
 
     <ImageView
         android:id="@+id/select7"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point7"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point7"
-        app:layout_constraintRight_toRightOf="@id/point7" />
+        app:layout_constraintRight_toRightOf="@id/point7"
+        app:layout_constraintTop_toBottomOf="@+id/point7" />
 
     <ImageView
         android:id="@+id/select8"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point8"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point8"
-        app:layout_constraintRight_toRightOf="@id/point8" />
+        app:layout_constraintRight_toRightOf="@id/point8"
+        app:layout_constraintTop_toBottomOf="@+id/point8" />
 
     <ImageView
         android:id="@+id/select9"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point9"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point9"
-        app:layout_constraintRight_toRightOf="@id/point9"/>
+        app:layout_constraintRight_toRightOf="@id/point9"
+        app:layout_constraintTop_toBottomOf="@+id/point9" />
 
     <ImageView
         android:id="@+id/select10"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point10"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point10"
-        app:layout_constraintRight_toRightOf="@id/point10" />
+        app:layout_constraintRight_toRightOf="@id/point10"
+        app:layout_constraintTop_toBottomOf="@+id/point10" />
 
     <ImageView
         android:id="@+id/select11"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point11"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point11"
-        app:layout_constraintRight_toRightOf="@id/point11" />
+        app:layout_constraintRight_toRightOf="@id/point11"
+        app:layout_constraintTop_toBottomOf="@+id/point11" />
 
     <ImageView
         android:id="@+id/select12"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle"
-        app:layout_constraintTop_toBottomOf="@+id/point12"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/bot_border"
         app:layout_constraintLeft_toLeftOf="@id/point12"
-        app:layout_constraintRight_toRightOf="@id/point12" />
+        app:layout_constraintRight_toRightOf="@id/point12"
+        app:layout_constraintTop_toBottomOf="@+id/point12" />
 
     <ImageView
         android:id="@+id/select13"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point13"
         app:layout_constraintLeft_toLeftOf="@+id/point13"
-        app:layout_constraintRight_toRightOf="@+id/point13" />
+        app:layout_constraintRight_toRightOf="@+id/point13"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select14"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point14"
         app:layout_constraintLeft_toLeftOf="@+id/point14"
-        app:layout_constraintRight_toRightOf="@+id/point14" />
+        app:layout_constraintRight_toRightOf="@+id/point14"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select15"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point15"
         app:layout_constraintLeft_toLeftOf="@+id/point15"
-        app:layout_constraintRight_toRightOf="@+id/point15" />
+        app:layout_constraintRight_toRightOf="@+id/point15"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select16"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point16"
         app:layout_constraintLeft_toLeftOf="@+id/point16"
-        app:layout_constraintLeft_toRightOf="@+id/point16" />
+        app:layout_constraintLeft_toRightOf="@+id/point16"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select17"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point17"
         app:layout_constraintLeft_toLeftOf="@+id/point17"
-        app:layout_constraintRight_toRightOf="@+id/point17" />
+        app:layout_constraintRight_toRightOf="@+id/point17"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select18"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point18"
         app:layout_constraintLeft_toLeftOf="@+id/point18"
-        app:layout_constraintRight_toRightOf="@+id/point18"/>
+        app:layout_constraintRight_toRightOf="@+id/point18"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select19"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point19"
         app:layout_constraintLeft_toLeftOf="@+id/point19"
-        app:layout_constraintLeft_toRightOf="@+id/point19" />
+        app:layout_constraintLeft_toRightOf="@+id/point19"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select20"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point20"
         app:layout_constraintLeft_toLeftOf="@+id/point20"
-        app:layout_constraintRight_toRightOf="@+id/point20" />
+        app:layout_constraintRight_toRightOf="@+id/point20"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select21"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point21"
         app:layout_constraintLeft_toLeftOf="@+id/point21"
-        app:layout_constraintRight_toRightOf="@+id/point21" />
+        app:layout_constraintRight_toRightOf="@+id/point21"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select22"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point22"
         app:layout_constraintLeft_toLeftOf="@+id/point22"
-        app:layout_constraintRight_toRightOf="@+id/point22" />
+        app:layout_constraintRight_toRightOf="@+id/point22"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select23"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point23"
         app:layout_constraintLeft_toLeftOf="@+id/point23"
-        app:layout_constraintRight_toRightOf="@+id/point23" />
+        app:layout_constraintRight_toRightOf="@+id/point23"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select24"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
-        app:layout_constraintTop_toTopOf="@id/top_border"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point24"
         app:layout_constraintLeft_toLeftOf="@+id/point24"
-        app:layout_constraintRight_toRightOf="@+id/point24" />
+        app:layout_constraintRight_toRightOf="@+id/point24"
+        app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
         android:id="@+id/select25"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:background="@drawable/green_triangle_flipped"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point25"
         app:layout_constraintLeft_toLeftOf="@+id/point25"
-        app:layout_constraintRight_toRightOf="@+id/point25" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toTopOf="@+id/top_border"
-        app:layout_constraintBottom_toBottomOf="@id/bot_border"
-        app:layout_constraintLeft_toLeftOf="@id/middle_left_bar"
-        app:layout_constraintRight_toRightOf="@id/middle_right_bar"/>
+        app:layout_constraintRight_toRightOf="@id/point25"/>
 
 
 </android.support.constraint.ConstraintLayout>

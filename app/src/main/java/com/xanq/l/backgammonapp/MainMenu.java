@@ -6,6 +6,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -45,21 +47,27 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void howToPlay(View view){
-        builder.setMessage("-To start playing roll the dice to select starting player. " +
+        builder.setCancelable(false);
+        builder.setView(R.layout.dialog_cancel);
+        dialog = builder.create();
+        dialog.show();
+
+        String message = "-To start playing roll the dice to select starting player. " +
                 "Once selected roll again to determine what moves you can make.\n" +
                 "-Select the point you wish to move from first then the point you wish to move to.\n" +
                 "-To bear off hold down on the point you wish to bear off from.\n\n" +
-                "-For more rules and strategies visit: http://www.bkgm.com/");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                "-For more rules and strategies visit: http://www.bkgm.com/";
+        TextView text = dialog.findViewById(R.id.dialog_text);
+        text.setText(message);
+
+        Button button = dialog.findViewById(R.id.dialog_btn);
+        button.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
+            public void onClick(View view){
+                dialog.dismiss();
                 onResume();
             }
         });
-        dialog = builder.create();
-        dialog.setCancelable(false);
-        dialog.show();
     }
 
     public void exitClick(View view){

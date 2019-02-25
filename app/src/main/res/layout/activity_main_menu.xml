@@ -12,33 +12,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="aiClick"
-        android:text="AI"
-        app:layout_constraintBottom_toTopOf="@+id/twoPlayerBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="     Single-player     "
+        android:textColor="@color/color_white"
+        android:background="@drawable/btn_background"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/twoPlayerBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <Button
         android:id="@+id/twoPlayerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="twoPlayerClick"
-        android:text="2 Player"
+        android:text="     Two-player     "
+        android:textColor="@color/color_white"
+        android:background="@drawable/btn_background"
+        app:layout_constraintTop_toBottomOf="@id/aiBtn"
         app:layout_constraintBottom_toTopOf="@id/howBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/aiBtn" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <Button
         android:id="@+id/howBtn"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:onClick="howToPlay"
-        android:text="How To Play"
+        android:text="     How To Play     "
+        android:textColor="@color/color_white"
+        android:background="@drawable/btn_background"
+        app:layout_constraintTop_toBottomOf="@id/twoPlayerBtn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/twoPlayerBtn" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <!--EXIT/SETTINGS BUTTON-->
     <ImageButton
