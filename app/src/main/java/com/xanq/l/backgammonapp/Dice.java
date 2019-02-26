@@ -32,7 +32,7 @@ public class Dice {
                 return false;
             }
         } else {
-            for (int i=board.getBar(player)-player; i!=board.getBar(-player)+player; i-=player) {
+            for (int i=board.getBar(player)-player; i!=board.getBar(-player); i-=player) {
                 if (board.isPointSelectable(i, player)) {
                     Move moveDie1 = new Move(i,  i + (die1 * -player), player);
                     Move moveDie2 = new Move(i,  i + (die2 * -player), player);
@@ -42,9 +42,7 @@ public class Dice {
                     }
                 }
             }
-            System.out.println();
         }
-        System.out.println("true");
         return true;
     }
 
