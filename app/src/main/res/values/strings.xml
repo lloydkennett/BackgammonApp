@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">BackgammonApp</string>
+    <string name="app_name">Expectigammon</string>
     <string name="btn_dice">Roll\nDice</string>
 </resources>

@@ -1,7 +1,5 @@
 package com.xanq.l.backgammonapp;
 
-import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -9,11 +7,8 @@ import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -21,7 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class InGame extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener{
+public class InGame extends AppCompatActivity implements View.OnClickListener{
 
     private boolean aiOpponent;
     private Dice dice;
@@ -41,13 +36,8 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
     public void onClick(View view){
         if(board.isPointPossible(Integer.parseInt((String)view.getTag()))){
             pointClick(view);
-        }
-    }
 
-    @Override
-    public boolean onLongClick(View view){
-        pointHold(view);
-        return true;
+        }
     }
 
     public void hideProgressBar() {
@@ -78,24 +68,32 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
                 dice.completeReset();
                 drawDice();
                 setupNextTurn();
-                goFullScreen();
             }
         });
 
     }
 
     public void drawExitDialog(String message){
-        builder.setMessage(message);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setCancelable(false);
+        builder.setView(R.layout.dialog_cancel);
+        dialog = builder.create();
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        TextView text = dialog.findViewById(R.id.dialog_text);
+        text.setText(message);
+
+        Button button = dialog.findViewById(R.id.dialog_btn);
+        button.setBackgroundResource(R.color.color_background2);
+        button.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
+            public void onClick(View view){
+                dialog.dismiss();
+                dialog = null;
+                dice.completeReset();
+                drawDice();
                 finish();
             }
         });
-        dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
     }
 
     public void removePointListeners(){
@@ -112,12 +110,6 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
             String pointString = "point" + i;
             ImageView point = findViewById(getResources().getIdentifier(pointString, "id", getPackageName()));
             point.setOnClickListener(this);
-            if(i >= 1 & i<= 6){
-                point.setOnLongClickListener(this);
-            }
-            if(i >= 19 & i<= 24){
-                point.setOnLongClickListener(this);
-            }
         }
     }
 
@@ -200,7 +192,6 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
             }
 
             checkerId += 5;
-            System.out.println();
         }
     }
 
@@ -254,11 +245,24 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
         }
     }
 
+    public void drawBearOff(boolean toShow){
+        ImageView bearOffBtn = findViewById(getResources().getIdentifier("bOffBtn", "id", getPackageName()));
+        if (toShow) {
+            bearOffBtn.setVisibility(View.VISIBLE);
+        } else {
+            bearOffBtn.setVisibility(View.INVISIBLE);
+        }
+    }
+
     public void drawSelections(boolean toShow){
         if(possiblePlays.size() > 0) {
             drawSelection(toShow, possiblePlays.get(0).getMove(0).getStart());
             for(int i=0; i<possiblePlays.size(); i++) {
-                drawSelection(toShow, possiblePlays.get(i).getMove(possiblePlays.get(i).getSize()-1).getEnd());
+                if(possiblePlays.get(i).getMove(possiblePlays.get(i).getSize() - 1).getEnd() == -1){
+                    drawBearOff(toShow);
+                } else {
+                    drawSelection(toShow, possiblePlays.get(i).getMove(possiblePlays.get(i).getSize() - 1).getEnd());
+                }
             }
         }
     }
@@ -270,21 +274,9 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
         }
     }
 
-    public void pointHold(View view) {
-        if(dice.isPlayable() && board.isBearingOff(currentPlayer) && aiColour != currentPlayer){
-            int pointId = Integer.parseInt(view.getTag().toString());
-            Move move = new Move(pointId, currentPlayer);
-            if(move.isHomePossible(board, dice.getDie1(), dice.getDie2())){
-                drawSelections(false);
-                possiblePlays.clear();
-                move.move(board);
-                redrawCheckers();
-                move.resetDiceBearingOff(dice);
-                drawDice();
-                possiblePlays.clear();
-                setupNextTurn();
-            }
-        }
+    public void bearOffClick(View view) {
+        makeMoveTask = new MakeMoveTask(board, currentPlayer, dice, possiblePlays, -1, this);
+        makeMoveTask.execute();
     }
 
     public void pointClick(View view) {
@@ -295,14 +287,14 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
                         board.isPointSelectable(board.getBar(currentPlayer), currentPlayer) && pointId == board.getBar(currentPlayer)) {
                     drawSelections(false);
                     possiblePlays.clear();
-                    startMoveTask = new StartMoveTask(board, currentPlayer, dice/*dice.getDie1(), dice.getDie2()*/, possiblePlays, pointId, this);
+                    startMoveTask = new StartMoveTask(board, currentPlayer, dice, possiblePlays, pointId, this);
                     startMoveTask.execute();
                 }
             } else if (possiblePlays.get(0).getMove(0).getStart() == pointId) {
                 drawSelections(false);
                 possiblePlays.clear();
             } else {
-                makeMoveTask = new MakeMoveTask(board, currentPlayer, dice, possiblePlays, pointId, this, aiOpponent);
+                makeMoveTask = new MakeMoveTask(board, currentPlayer, dice, possiblePlays, pointId, this);
                 makeMoveTask.execute();
             }
         }
@@ -326,7 +318,9 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
                 }
                 if (lastMove) {
                     hideProgressBar();
-                    if (dice.resetUnplayableDie(board, currentPlayer)) {
+                    if (board.checkWin(currentPlayer)) {
+                        checkWin();
+                    } else if (dice.resetUnplayableDie(board, currentPlayer)) {
                         drawCancelableDialog("Dice: "+dice.getDie1()+" and "+dice.getDie2()+"" +
                         "\nNo playable moves. Resetting dice.");
                     } else {
@@ -371,9 +365,9 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
 
     public void checkWin(){
         if (board.checkWin(1)) {
-            drawExitDialog("White wins! Return to home menu");
+            drawExitDialog("White wins!\n\nReturn to home menu");
         } else if (board.checkWin(-1)) {
-            drawExitDialog("Black lose! Return to home menu");
+            drawExitDialog("Black wins!\n\nReturn to home menu");
         }
     }
 
@@ -393,8 +387,6 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
                 currentPlayer = -1;
                 drawCancelableDialog("Die 1:  "+dice.getDie1()+"          Die 2:  "+dice.getDie2()+
                         "\n\nYou are white and move first");
-            /*drawCancelableDialog("Die 1: "+dice.getDie1()+"\tDie 2: "+dice.getDie2()+
-                        "\nPlayer is white.\tComputer is black.\n\nPlayer moves first.");*/
             } else if (dice.getDie1() < dice.getDie2()) {
                 aiColour = 1;
                 currentPlayer = -1;
@@ -403,7 +395,6 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
             }
         } else {
             if (dice.resetUnplayableDie(board, currentPlayer)) {
-                System.out.println("in roll click");
                 drawCancelableDialog("Die 1:  "+dice.getDie1()+"          Die 2:  "+dice.getDie2()+
                         "\n\nNo playable moves. Resetting dice.");
             } else {
@@ -476,22 +467,6 @@ public class InGame extends AppCompatActivity implements View.OnClickListener, V
         createCheckers();
         drawDice();
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        goFullScreen();
-    }
-
-    public void goFullScreen(){
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
 }

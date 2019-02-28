@@ -207,7 +207,6 @@
         app:layout_constraintStart_toEndOf="@+id/point0"
         app:layout_constraintTop_toTopOf="@+id/point0" />
 
-
     <!--EXIT/SETTINGS BUTTON-->
     <ImageButton
         android:id="@+id/saveBtn"
@@ -218,6 +217,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <!--BEAR OFF BUTTON-->
+    <ImageButton
+        android:id="@+id/bOffBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/arrow_bearoff"
+        android:onClick="bearOffClick"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/die1"
+        app:layout_constraintBottom_toTopOf="@id/die2"
+        app:layout_constraintLeft_toRightOf="@id/point2"
+        app:layout_constraintRight_toRightOf="@id/right_border"/>
 
     <!--TRIANGLES-->
     <!--BOTTOM RIGHT-->
@@ -672,7 +684,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point16"
         app:layout_constraintLeft_toLeftOf="@+id/point16"
-        app:layout_constraintLeft_toRightOf="@+id/point16"
+        app:layout_constraintRight_toRightOf="@+id/point16"
         app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView
@@ -705,7 +717,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/point19"
         app:layout_constraintLeft_toLeftOf="@+id/point19"
-        app:layout_constraintLeft_toRightOf="@+id/point19"
+        app:layout_constraintRight_toRightOf="@+id/point19"
         app:layout_constraintTop_toTopOf="@id/top_border" />
 
     <ImageView

@@ -1,6 +1,5 @@
 package com.xanq.l.backgammonapp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,19 +20,6 @@ public class MainMenu extends AppCompatActivity {
         builder = new AlertDialog.Builder(this);
 
     }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-    }
-
     public void aiClick(View view){
         Intent intent = new Intent(MainMenu.this, InGame.class);
         intent.putExtra("aiOpponent", true);
@@ -52,11 +38,13 @@ public class MainMenu extends AppCompatActivity {
         dialog = builder.create();
         dialog.show();
 
-        String message = "-To start playing roll the dice to select starting player. " +
-                "Once selected roll again to determine what moves you can make.\n" +
-                "-Select the point you wish to move from first then the point you wish to move to.\n" +
-                "-To bear off hold down on the point you wish to bear off from.\n\n" +
-                "-For more rules and strategies visit: http://www.bkgm.com/";
+        String message = "-To start playing choose a game mode: (Single or Two-Player) and " +
+                "roll the dice to begin.\n" +
+                "-5 checkers are limited to each point\n"+
+                "-This game does not currently include the doubling cube. (Future update)\n"+
+                "-The computer can sometimes take a while to find moves, especially on double rolls. " +
+                "Please be patient.\n\n" +
+                "For more rules and strategies visit: www.bkgm.com";
         TextView text = dialog.findViewById(R.id.dialog_text);
         text.setText(message);
 

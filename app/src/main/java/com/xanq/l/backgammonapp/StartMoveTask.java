@@ -21,14 +21,22 @@ public class StartMoveTask extends AsyncTask <Void, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... params){
-        if(dice.getDie1() != 0 && board.isPointAvailable(start - dice.getDie1() * player, player)){
+        if(dice.getDie1() != 0 && (board.isPointAvailable(start - dice.getDie1() * player, player))){
             Play play = new Play();
             play.addMove(new Move(start, start - dice.getDie1() * player, player));
+            possiblePlays.add(play);
+        } else if (dice.getDie1() != 0 && board.isBearingOff(player) && board.getFurthestFromHome(player, dice.getDie1()) == start) {
+            Play play = new Play();
+            play.addMove(new Move(start, -1, player));
             possiblePlays.add(play);
         }
         if(dice.getDie2() != 0 && dice.getDie1() != dice.getDie2() && board.isPointAvailable(start - dice.getDie2() * player, player)){
             Play play = new Play();
             play.addMove(new Move(start, start - dice.getDie2() * player, player));
+            possiblePlays.add(play);
+        } else if (dice.getDie2() != 0 && board.isBearingOff(player) && board.getFurthestFromHome(player, dice.getDie2()) == start) {
+            Play play = new Play();
+            play.addMove(new Move(start, -1, player));
             possiblePlays.add(play);
         }
         if(possiblePlays.size() != 0 && dice.getDie1() != 0 && dice.getDie2() != 0 && board.isPointAvailable(start - (dice.getDie1() + dice.getDie2()) * player, player) && board.getCheckersAtPoint(board.getBar(player)) * player < 2){

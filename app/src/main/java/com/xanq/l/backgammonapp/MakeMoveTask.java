@@ -9,16 +9,14 @@ public class MakeMoveTask extends AsyncTask <Void, Void, Play> {
     private int player, pointId;
     private ArrayList<Play> possiblePlays;
     private InGame inGame;
-    private boolean aiOpponent;
 
-    public MakeMoveTask(Board board, int player, Dice dice, ArrayList<Play> possiblePlays, int pointId, InGame inGame, boolean aiOpponent) {
+    public MakeMoveTask(Board board, int player, Dice dice, ArrayList<Play> possiblePlays, int pointId, InGame inGame) {
         this.board = board;
         this.player = player;
         this.dice = dice;
         this.possiblePlays = possiblePlays;
         this.pointId = pointId;
         this.inGame = inGame;
-        this.aiOpponent = aiOpponent;
     }
 
     @Override
