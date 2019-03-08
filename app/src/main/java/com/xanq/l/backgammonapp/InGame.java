@@ -113,7 +113,6 @@ public class InGame extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    //TODO Check if constraintset has to be one per imageview (api reference not working atm)
     public void constrainCheckersToTopPoint(int checkerId, int point){
         int pointId = getResources().getIdentifier("point" + point, "id", getPackageName());
         for(int j = 0; j < 5; j++) {
@@ -445,6 +444,7 @@ public class InGame extends AppCompatActivity implements View.OnClickListener{
         stopThread(AITask);
         stopThread(makeMoveTask);
         stopThread(startMoveTask);
+        aiOpponent = false;
         dialog = null;
         super.onDestroy();
     }
