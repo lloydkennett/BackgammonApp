@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xanq.l.backgammonapp.MainMenu"
+    tools:context="com.kennett.l.backgammonapp.MainMenu"
     android:background="@mipmap/background1">
 
     <Button

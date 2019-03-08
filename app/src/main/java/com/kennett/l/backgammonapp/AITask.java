@@ -1,4 +1,4 @@
-package com.xanq.l.backgammonapp;
+package com.kennett.l.backgammonapp;
 
 import android.os.AsyncTask;
 

@@ -1,4 +1,4 @@
-package com.xanq.l.backgammonapp;
+package com.kennett.l.backgammonapp;
 
 public class Move {
     private int start;
