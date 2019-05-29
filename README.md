@@ -1,7 +1,7 @@
 # BackgammonApp
 This is my final university project. It is a backgammon Android application with an AI opponent to play against. 
 
-The app is on the [Google Play store](https://play.google.com/store/apps/details?id=com.xanq.l.backgammonapp).
+The app is on the [Google Play store](https://play.google.com/store/apps/details?id=com.kennett.l.expectigammon&hl=en_GB).
 
 The application makes use of two activities, one for the [main menu](../master/app/src/main/java/com/kennett/l/backgammonapp/MainMenu.java) and the other for the [game screen](../master/app/src/main/java/com/kennett/l/backgammonapp/InGame.java).  
 It also uses 3 AsyncTasks to help manage the pace and timings of the game:
